@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HR AI Agents - Support | Netsmartz</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f5f5;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+            color: white;
+            padding: 2rem 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .logo {
+            height: 90px;
+            background-color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 100%;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .content {
+            background: white;
+            margin: 2rem auto;
+            padding: 3rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+        }
+
+        .section {
+            margin-bottom: 3rem;
+        }
+
+        .section h2 {
+            color: #1e3a8a;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid #3b82f6;
+        }
+
+        .section h3 {
+            color: #2563eb;
+            font-size: 1.3rem;
+            margin: 1.5rem 0 0.8rem 0;
+        }
+
+        .section p, .section li {
+            font-size: 1rem;
+            margin-bottom: 0.8rem;
+            color: #555;
+        }
+
+        .section ul {
+            margin-left: 2rem;
+        }
+
+        .support-box {
+            background: #f0f9ff;
+            border-left: 4px solid #3b82f6;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 5px;
+        }
+
+        .support-box h3 {
+            color: #1e3a8a;
+            margin-top: 0;
+        }
+
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .contact-card {
+            background: white;
+            border: 2px solid #e5e7eb;
+            padding: 1.5rem;
+            border-radius: 8px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .contact-card:hover {
+            border-color: #3b82f6;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .contact-card h4 {
+            color: #1e3a8a;
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+        }
+
+        .contact-card a {
+            color: #3b82f6;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .contact-card a:hover {
+            text-decoration: underline;
+        }
+
+        .faq-item {
+            background: #fafafa;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            border-radius: 8px;
+            border-left: 3px solid #3b82f6;
+        }
+
+        .faq-item h4 {
+            color: #1e3a8a;
+            margin-bottom: 0.8rem;
+            font-size: 1.1rem;
+        }
+
+        .faq-item p {
+            margin-bottom: 0.5rem;
+        }
+
+        .feature-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .feature-card {
+            background: #f9fafb;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid #e5e7eb;
+        }
+
+        .feature-card h4 {
+            color: #1e3a8a;
+            margin-bottom: 0.5rem;
+        }
+
+        .badge {
+            display: inline-block;
+            background: #3b82f6;
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .footer {
+            background: #1e293b;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+
+        .footer a {
+            color: #60a5fa;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        .ibm-badge {
+            background: #0f62fe;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            display: inline-block;
+            margin-top: 1rem;
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .content {
+                padding: 1.5rem;
+            }
+
+            .container {
+                padding: 0 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="container">
+            <div class="logo-section">
+                <div class="logo">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSiBrb-vACALNssvX8y7EWwjajJeEG2L94NIg&s" alt="Netsmartz Logo">
+                </div>
+            </div>
+            <h1>HR AI Agents - Support</h1>
+            <p>AI-Powered Recruitment & Hiring Tools</p>
+            <div class="ibm-badge">Powered by IBM watsonx Orchestrate</div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="content">
+            
+            <!-- Product Overview -->
+            <div class="section">
+                <h2>About HR AI Agents Suite</h2>
+                <p>Our suite of intelligent HR agents is designed to streamline your entire recruitment process—from crafting job descriptions to evaluating candidates. Built natively on IBM watsonx Orchestrate, these tools help HR professionals, recruiters, and hiring managers work more efficiently and consistently.</p>
+                
+                <h3>🎯 JD Generator Agent</h3>
+                <p>The JD Generator helps create, improve, and refine job descriptions for technical and non-technical roles. It turns role requirements, skills, and experience into clear, structured, and professional job descriptions.</p>
+                <div class="feature-list">
+                    <div class="feature-card">
+                        <h4>✨ Create Job Descriptions</h4>
+                        <p>Generate professional JDs from basic role information and requirements.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>🔄 Refine & Update</h4>
+                        <p>Improve existing job descriptions for clarity and consistency.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>📋 Standardize Format</h4>
+                        <p>Ensure all JDs follow a consistent, professional structure.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>🎯 Smart Adaptation</h4>
+                        <p>Adapts output based on experience level, role type, and location.</p>
+                    </div>
+                </div>
+
+                <h3>📝 HR Questionnaire Generator Agent</h3>
+                <p>The HR Questionnaire Generator helps recruiters, hiring managers, and interviewers create high-quality interview question sets tailored to a specific role, experience level, and skill focus. It supports interviews across technical, functional, and emerging areas such as GenAI, LLMs, MLOps, Responsible AI, and prompt engineering.</p>
+                <div class="feature-list">
+                    <div class="feature-card">
+                        <h4>🎯 Role-Specific Questions</h4>
+                        <p>Generate targeted interview questions based on job requirements and skill focus.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>📊 Scoring Rubrics</h4>
+                        <p>Includes evaluation criteria, ideal answers, red flags, and difficulty levels.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>🔍 Follow-up Prompts</h4>
+                        <p>Provides probing questions to deepen candidate assessment.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>⚖️ Bias-Aware Design</h4>
+                        <p>Ensures questions are inclusive, fair, and compliant with responsible hiring practices.</p>
+                    </div>
+                </div>
+
+                <h3>⭐ Resume Scoring Agent</h3>
+                <p>The Resume Scoring Agent helps recruiters and hiring managers evaluate candidate resumes against specific job descriptions. It analyzes resumes using a transparent, job-related scoring rubric and generates structured summaries that support consistent shortlisting decisions.</p>
+                <div class="feature-list">
+                    <div class="feature-card">
+                        <h4>📊 Transparent Scoring</h4>
+                        <p>Uses a 100-point rubric covering skills, experience, achievements, and education.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>✅ Must-Have Checklist</h4>
+                        <p>Evaluates alignment with required and preferred qualifications with evidence.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>🔄 Multi-Candidate Support</h4>
+                        <p>Compare multiple resumes side-by-side with ranking and recommendations.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>🎯 Interview Guidance</h4>
+                        <p>Provides follow-up questions and focus areas based on resume gaps.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Getting Started -->
+            <div class="section">
+                <h2>Getting Started</h2>
+                
+                <h3>Prerequisites</h3>
+                <ul>
+                    <li>Active IBM watsonx Orchestrate account with access to HR AI Agents</li>
+                    <li>Basic understanding of recruitment and hiring processes</li>
+                </ul>
+
+                <h3>How to Use Each Agent</h3>
+                
+                <div class="support-box">
+                    <h3>🎯 JD Generator - Quick Start</h3>
+                    <ol style="margin-left: 2rem;">
+                        <li><strong>Launch:</strong> Open JD Generator from your IBM watsonx Orchestrate workspace</li>
+                        <li><strong>Provide:</strong> Job title and experience level (minimum required)</li>
+                        <li><strong>Add Details:</strong> Include skills, responsibilities, qualifications (optional)</li>
+                        <li><strong>Receive:</strong> Structured job description with role overview, responsibilities, qualifications, and more</li>
+                    </ol>
+                </div>
+
+                <div class="support-box">
+                    <h3>📝 HR Questionnaire Generator - Quick Start</h3>
+                    <ol style="margin-left: 2rem;">
+                        <li><strong>Launch:</strong> Open Questionnaire Generator from your workspace</li>
+                        <li><strong>Provide:</strong> Target role, experience level, and skill focus areas</li>
+                        <li><strong>Specify:</strong> Number of questions needed (default: 5) and interview type (optional)</li>
+                        <li><strong>Receive:</strong> Question set with scoring rubrics, ideal answers, red flags, and follow-up prompts</li>
+                    </ol>
+                </div>
+
+                <div class="support-box">
+                    <h3>⭐ Resume Scoring Agent - Quick Start</h3>
+                    <ol style="margin-left: 2rem;">
+                        <li><strong>Launch:</strong> Open Resume Scoring Agent from your workspace</li>
+                        <li><strong>Paste:</strong> Job description text and candidate resume(s)</li>
+                        <li><strong>Specify:</strong> Must-haves, nice-to-haves, and custom weights (optional)</li>
+                        <li><strong>Receive:</strong> Detailed scorecard with scores, strengths, gaps, must-have checklist, and interview questions</li>
+                    </ol>
+                </div>
+            </div>
+
+            <!-- FAQs -->
+            <div class="section">
+                <h2>Frequently Asked Questions</h2>
+
+                <div class="faq-item">
+                    <h4>Q: What is IBM watsonx Orchestrate?</h4>
+                    <p>IBM watsonx Orchestrate is an AI-powered automation platform that helps organizations streamline business processes by combining AI, automation, and human collaboration. It allows you to deploy and manage AI agents that assist with various business tasks.</p>
+                </div>
+
+                <div class="faq-item">
+                    <h4>Q: How do I access the HR AI Agents?</h4>
+                    <p>All three agents (JD Generator, Questionnaire Generator, and Resume Scoring) are available directly in your IBM watsonx Orchestrate workspace under your available agents. Simply click on the agent you need to launch it. No installation required.</p>
+                </div>
+
+                <div class="faq-item">
+                    <h4>Q: What's the difference between the three agents?</h4>
+                    <p><strong>JD Generator:</strong> Creates and refines job descriptions. <strong>Questionnaire Generator:</strong> Builds interview question sets with scoring rubrics. <strong>Resume Scoring:</strong> Evaluates candidate resumes against job requirements.</p>
+                </div>
+
+                <div class="faq-item">
+                    <h4>Q: Can I use all three agents together in my hiring workflow?</h4>
+                    <p>Absolutely! They're designed to work together: Start with JD Generator to create job descriptions, use Questionnaire Generator to build interview questions, and use Resume Scoring to evaluate incoming applications.</p>
+                </div>
+
+                <div class="faq-item">
+                    <h4>Q: What information do I need to provide to each agent?</h4>
+                    <p><strong>JD Generator:</strong> Job title and experience level (minimum). <strong>Questionnaire Generator:</strong> Role, experience, skill focus. <strong>Resume Scoring:</strong> Job description text and resume(s).</p>
+                </div>
+
+                <div class="faq-item">
+                    <h4>Q: Do the agents work for both technical and non-technical roles?</h4>
+                    <p>Yes! All three agents are designed to work across all types of roles and industries, from software engineers to marketing managers, data scientists to HR specialists.</p>
+                </div>
+
+                <div class="faq-item">
+                    <h4>Q: Are the agents bias-aware and compliant with fair hiring practices?</h4>
+                    <p>Yes. All agents are designed to avoid discriminatory content and follow responsible hiring practices. They do not use protected characteristics (age, gender, race, religion, etc.) in their evaluations or outputs.</p>
+                </div>
+
+                <div class="faq-item">
+                    <h4>Q: Can the Resume Scoring agent compare multiple candidates?</h4>
+                    <p>Yes! The Resume Scoring agent supports multi-candidate evaluation. You can submit multiple resumes and receive individual scorecards plus a comparison summary with rankings.</p>
+                </div>
+
+                <div class="faq-item">
+                    <h4>Q: Does the Questionnaire Generator support emerging tech skills like GenAI?</h4>
+                    <p>Absolutely. The agent supports questions for emerging areas including GenAI, LLMs, MLOps, Responsible AI, and prompt engineering, in addition to traditional technical and behavioral topics.</p>
+                </div>
+
+                <div class="faq-item">
+                    <h4>Q: How do I get access to the JD Generator?</h4>
+                    <p>The JD Generator is available as a partner solution on IBM watsonx Orchestrate. Contact your IBM watsonx Orchestrate administrator or Netsmartz support team to enable access to the agent in your workspace.</p>
+                </div>
+
+                <div class="faq-item">
+                    <h4>Q: Is my data secure when using the agent?</h4>
+                    <p>Yes. The JD Generator operates within IBM watsonx Orchestrate's secure environment and follows IBM's security and privacy standards. All data is processed according to IBM's enterprise-grade security protocols.</p>
+                </div>
+
+                <div class="faq-item">
+                    <h4>Q: Does the agent make hiring decisions or evaluate candidates?</h4>
+                    <p>No. The JD Generator focuses solely on creating and refining job description content. It does not evaluate candidates, make hiring recommendations, or participate in applicant screening.</p>
+                </div>
+
+                <div class="faq-item">
+                    <h4>Q: What if the agent doesn't understand my request?</h4>
+                    <p>The agent will ask clarifying questions when necessary information is missing. If you receive unexpected output, try rephrasing your request or providing more specific details about the role.</p>
+                </div>
+
+                <div class="faq-item">
+                    <h4>Q: Can I use the same agent for multiple job descriptions?</h4>
+                    <p>Yes! You can create as many job descriptions as you need. Each request is handled independently, allowing you to generate JDs for different roles in the same session.</p>
+                </div>
+
+                <div class="faq-item">
+                    <h4>Q: Are there any usage limits or restrictions?</h4>
+                    <p>Usage limits depend on your IBM watsonx Orchestrate subscription plan. Contact Netsmartz support or your IBM account manager for specific details about your plan's limitations.</p>
+                </div>
+            </div>
+
+            <!-- Known Limitations -->
+            <div class="section">
+                <h2>Known Limitations</h2>
+                
+                <h3>All Agents</h3>
+                <ul>
+                    <li>Do not provide legal, compliance, or regulatory advice</li>
+                    <li>Will not generate biased, discriminatory, or exclusionary content</li>
+                    <li>Do not access external databases, ATS systems, or proprietary company data</li>
+                    <li>Work only with information provided in the conversation</li>
+                </ul>
+
+                <h3>JD Generator</h3>
+                <ul>
+                    <li>Company-specific policies, benefits, and compensation must be added manually</li>
+                    <li>Uses generic placeholders that require customization</li>
+                    <li>Does not fabricate certifications or requirements not provided by user</li>
+                </ul>
+
+                <h3>Questionnaire Generator</h3>
+                <ul>
+                    <li>Does not claim access to internal policies or proprietary job descriptions</li>
+                    <li>Cannot integrate with interview scheduling or ATS platforms</li>
+                    <li>Questions are templates that may need role-specific adjustment</li>
+                </ul>
+
+                <h3>Resume Scoring Agent</h3>
+                <ul>
+                    <li>Privacy-first: does not repeat personal identifiers (phone, email, DOB, addresses) in outputs</li>
+                    <li>Ignores protected attributes and does not use them in evaluation</li>
+                    <li>Provides decision support only—final hiring decisions remain with humans</li>
+                </ul>
+            </div>
+
+            <!-- Support Contact -->
+            <div class="section">
+                <h2>Contact Support</h2>
+                <p>Need help? Our support team is here to assist you with any questions or issues related to the JD Generator agent.</p>
+
+                <div class="contact-info">
+                    <div class="contact-card">
+                        <h4>📧 Email Support</h4>
+                        <a href="mailto:support@netsmartz.com">support@netsmartz.com</a>
+                        <p style="margin-top: 1rem; font-size: 0.9rem; color: #777;">We typically respond within 24-48 hours</p>
+                    </div>
+
+                    <div class="contact-card">
+                        <h4>📚 Documentation</h4>
+                        <p>Access detailed guides and tutorials</p>
+                        <div style="margin-top: 1rem; display: flex; flex-direction: column; gap: 0.8rem;">
+                            <a href="https://docs.google.com/document/d/1Wd8bB9opjcJ6OJ2hpTgGrQ6A8vo3c0vmNH3MgO-tRWU/edit?usp=sharing" target="_blank">🎯 JD Generator Guide</a>
+                            <a href="https://docs.google.com/document/d/1bB_RJo_fVSt_mje3rfndCAqH0GsuyhzOAEtTb0r1KEk/edit?usp=sharing" target="_blank">📝 Questionnaire Generator Guide</a>
+                            <a href="https://docs.google.com/document/d/1aic5Avi_oI3Re4nf0rUXervNEYNhNivC5svPXhjiw0Q/edit?usp=sharing" target="_blank">⭐ Resume Scoring Guide</a>
+                        </div>
+                    </div>
+
+                    <div class="contact-card">
+                        <h4>🌐 Company Website</h4>
+                        <p>Learn more about Netsmartz</p>
+                        <a href="https://www.netsmartz.com" target="_blank">www.netsmartz.com</a>
+                    </div>
+                </div>
+
+                <div class="support-box" style="margin-top: 2rem;">
+                    <h3>When Contacting Support, Please Include:</h3>
+                    <ul>
+                        <li>Your IBM watsonx Orchestrate workspace ID or organization name</li>
+                        <li>Description of the issue or question</li>
+                        <li>Steps you've already taken to resolve the issue</li>
+                        <li>Any error messages or unexpected behavior you've encountered</li>
+                        <li>Screenshots (if applicable)</li>
+                    </ul>
+                    <p style="margin-top: 1rem; font-style: italic; color: #555;">For access requests or enablement inquiries, please contact your IBM watsonx Orchestrate administrator or reach out to our support team.</p>
+                </div>
+            </div>
+
+            <!-- Troubleshooting -->
+            <div class="section">
+                <h2>Quick Troubleshooting</h2>
+
+                <div class="faq-item">
+                    <h4>Agent is not responding</h4>
+                    <p><strong>Solution:</strong> Check your IBM watsonx Orchestrate connection. Try refreshing your workspace or logging out and back in. If the issue persists, contact support.</p>
+                </div>
+
+                <div class="faq-item">
+                    <h4>Output is not what I expected</h4>
+                    <p><strong>Solution:</strong> Provide more specific details and context. All agents work best with clear, detailed input. You can ask any agent to refine or modify specific sections of their output.</p>
+                </div>
+
+                <div class="faq-item">
+                    <h4>Agent asks too many questions</h4>
+                    <p><strong>Solution:</strong> Provide comprehensive initial input with all relevant details upfront. This reduces the need for clarifying questions.</p>
+                </div>
+
+                <div class="faq-item">
+                    <h4>Cannot find the agents in my workspace</h4>
+                    <p><strong>Solution:</strong> Verify that your organization has access to the HR AI Agents and that they have been enabled for your workspace. Check with your IBM watsonx Orchestrate administrator or contact Netsmartz support for access assistance.</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="footer">
+        <div class="container">
+            <p>&copy; 2026 Netsmartz. All rights reserved.</p>
+            <p style="margin-top: 0.5rem;">
+                <a href="support.html">Support</a> | 
+                <a href="status.html">Service Status</a> | 
+                <a href="mailto:support@netsmartz.com">Contact Us</a>
+            </p>
+            <p style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.8;">
+                Powered by IBM watsonx Orchestrate
+            </p>
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HR AI Agents - Service Status | Netsmartz</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f5f5;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+            color: white;
+            padding: 2rem 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .logo {
+            height: 90px;
+            background-color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 100%;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .content {
+            background: white;
+            margin: 2rem auto;
+            padding: 3rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+        }
+
+        /* Status Banner */
+        .status-banner {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            text-align: center;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+        }
+
+        .status-banner.degraded {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
+        }
+
+        .status-banner.down {
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
+        }
+
+        .status-banner h2 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .status-icon {
+            font-size: 2.5rem;
+        }
+
+        .last-updated {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            margin-top: 0.5rem;
+        }
+
+        /* Section Styling */
+        .section {
+            margin-bottom: 3rem;
+        }
+
+        .section h2 {
+            color: #1e3a8a;
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid #3b82f6;
+        }
+
+        .section h3 {
+            color: #2563eb;
+            font-size: 1.3rem;
+            margin: 1.5rem 0 1rem 0;
+        }
+
+        /* Component Status */
+        .components-grid {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .component-item {
+            background: #fafafa;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid #10b981;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .component-item:hover {
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transform: translateX(5px);
+        }
+
+        .component-item.degraded {
+            border-left-color: #f59e0b;
+        }
+
+        .component-item.down {
+            border-left-color: #ef4444;
+        }
+
+        .component-name {
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: #333;
+        }
+
+        .component-status {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 600;
+        }
+
+        .status-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: #10b981;
+        }
+
+        .status-dot.degraded {
+            background-color: #f59e0b;
+        }
+
+        .status-dot.down {
+            background-color: #ef4444;
+        }
+
+        .status-text {
+            color: #10b981;
+        }
+
+        .status-text.degraded {
+            color: #f59e0b;
+        }
+
+        .status-text.down {
+            color: #ef4444;
+        }
+
+        /* Uptime Metrics */
+        .uptime-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .uptime-card {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            padding: 1.5rem;
+            border-radius: 8px;
+            text-align: center;
+            border: 2px solid #bae6fd;
+        }
+
+        .uptime-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #0c4a6e;
+            margin-bottom: 0.5rem;
+        }
+
+        .uptime-label {
+            color: #0369a1;
+            font-weight: 600;
+        }
+
+        /* Maintenance Window */
+        .maintenance-box {
+            background: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+        }
+
+        .maintenance-box.none {
+            background: #f0fdf4;
+            border-left-color: #10b981;
+        }
+
+        .maintenance-box h4 {
+            color: #92400e;
+            margin-bottom: 0.8rem;
+            font-size: 1.1rem;
+        }
+
+        .maintenance-box.none h4 {
+            color: #065f46;
+        }
+
+        /* Incident Item */
+        .incident-item {
+            background: #fef2f2;
+            border-left: 4px solid #ef4444;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            border-radius: 8px;
+        }
+
+        .incident-item.resolved {
+            background: #f0fdf4;
+            border-left-color: #10b981;
+        }
+
+        .incident-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .incident-title {
+            font-weight: 600;
+            color: #991b1b;
+            font-size: 1.1rem;
+        }
+
+        .incident-item.resolved .incident-title {
+            color: #065f46;
+        }
+
+        .incident-badge {
+            background: #dc2626;
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .incident-badge.resolved {
+            background: #10b981;
+        }
+
+        .incident-date {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .incident-description {
+            color: #555;
+            line-height: 1.6;
+        }
+
+        /* Status Calendar */
+        .status-calendar {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(30px, 1fr));
+            gap: 5px;
+            margin-top: 1.5rem;
+        }
+
+        .calendar-day {
+            aspect-ratio: 1;
+            border-radius: 3px;
+            background: #10b981;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .calendar-day:hover {
+            transform: scale(1.1);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+
+        .calendar-day.degraded {
+            background: #f59e0b;
+        }
+
+        .calendar-day.down {
+            background: #ef4444;
+        }
+
+        .calendar-day.no-data {
+            background: #e5e7eb;
+        }
+
+        .calendar-legend {
+            display: flex;
+            gap: 2rem;
+            margin-top: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .legend-dot {
+            width: 15px;
+            height: 15px;
+            border-radius: 3px;
+        }
+
+        /* Subscribe Section */
+        .subscribe-box {
+            background: linear-gradient(135deg, #ede9fe 0%, #ddd6fe 100%);
+            padding: 2rem;
+            border-radius: 10px;
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .subscribe-box h3 {
+            color: #5b21b6;
+            margin-bottom: 1rem;
+        }
+
+        .subscribe-box p {
+            color: #6b21a8;
+            margin-bottom: 1.5rem;
+        }
+
+        .subscribe-form {
+            display: flex;
+            gap: 1rem;
+            max-width: 500px;
+            margin: 0 auto;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .subscribe-form input {
+            flex: 1;
+            min-width: 250px;
+            padding: 0.8rem;
+            border: 2px solid #c4b5fd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .subscribe-form button {
+            padding: 0.8rem 2rem;
+            background: #7c3aed;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .subscribe-form button:hover {
+            background: #6d28d9;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3);
+        }
+
+        .no-incidents {
+            text-align: center;
+            padding: 2rem;
+            background: #f0fdf4;
+            border-radius: 8px;
+            color: #065f46;
+            font-size: 1.1rem;
+        }
+
+        .footer {
+            background: #1e293b;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+
+        .footer a {
+            color: #60a5fa;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        .ibm-badge {
+            background: #0f62fe;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            display: inline-block;
+            margin-top: 1rem;
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .content {
+                padding: 1.5rem;
+            }
+
+            .container {
+                padding: 0 1rem;
+            }
+
+            .status-banner h2 {
+                font-size: 1.5rem;
+            }
+
+            .incident-header {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="container">
+            <div class="logo-section">
+                <div class="logo">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSiBrb-vACALNssvX8y7EWwjajJeEG2L94NIg&s" alt="Netsmartz Logo">
+                </div>
+            </div>
+            <h1>HR AI Agents - Service Status</h1>
+            <p>Real-time system status and uptime monitoring</p>
+            <div class="ibm-badge">Powered by IBM watsonx Orchestrate</div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="content">
+            
+            <!-- Current Status Banner -->
+            <!-- To change status: Replace class "status-banner" with "status-banner degraded" or "status-banner down" -->
+            <div class="status-banner">
+                <h2>
+                    <span class="status-icon">✓</span>
+                    All Systems Operational
+                </h2>
+                <p>All HR AI Agents are running smoothly with no known issues</p>
+                <p class="last-updated">Last updated: February 3, 2026 at 10:00 AM UTC</p>
+            </div>
+
+            <!-- Component Status -->
+            <div class="section">
+                <h2>System Components</h2>
+                <div class="components-grid">
+                    <!-- To mark a component as degraded/down, add class "degraded" or "down" to component-item -->
+                    <div class="component-item">
+                        <div class="component-name">🎯 JD Generator Agent</div>
+                        <div class="component-status">
+                            <span class="status-dot"></span>
+                            <span class="status-text">Operational</span>
+                        </div>
+                    </div>
+
+                    <div class="component-item">
+                        <div class="component-name">📝 HR Questionnaire Generator Agent</div>
+                        <div class="component-status">
+                            <span class="status-dot"></span>
+                            <span class="status-text">Operational</span>
+                        </div>
+                    </div>
+
+                    <div class="component-item">
+                        <div class="component-name">⭐ Resume Scoring Agent</div>
+                        <div class="component-status">
+                            <span class="status-dot"></span>
+                            <span class="status-text">Operational</span>
+                        </div>
+                    </div>
+
+                    <div class="component-item">
+                        <div class="component-name">API Services</div>
+                        <div class="component-status">
+                            <span class="status-dot"></span>
+                            <span class="status-text">Operational</span>
+                        </div>
+                    </div>
+
+                    <div class="component-item">
+                        <div class="component-name">Authentication & Access Control</div>
+                        <div class="component-status">
+                            <span class="status-dot"></span>
+                            <span class="status-text">Operational</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Uptime Metrics -->
+            <div class="section">
+                <h2>Uptime Metrics</h2>
+                <div class="uptime-grid">
+                    <div class="uptime-card">
+                        <div class="uptime-value">99.9%</div>
+                        <div class="uptime-label">Last 30 Days</div>
+                    </div>
+                    <div class="uptime-card">
+                        <div class="uptime-value">99.95%</div>
+                        <div class="uptime-label">Last 90 Days</div>
+                    </div>
+                    <div class="uptime-card">
+                        <div class="uptime-value">100%</div>
+                        <div class="uptime-label">This Month</div>
+                    </div>
+                </div>
+
+                <!-- 90-Day Status Calendar -->
+                <h3>90-Day Status History</h3>
+                <div class="status-calendar" id="statusCalendar">
+                    <!-- Calendar generated by JavaScript below -->
+                </div>
+                <div class="calendar-legend">
+                    <div class="legend-item">
+                        <div class="legend-dot" style="background: #10b981;"></div>
+                        <span>Operational</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-dot" style="background: #f59e0b;"></div>
+                        <span>Degraded Performance</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-dot" style="background: #ef4444;"></div>
+                        <span>Service Disruption</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-dot" style="background: #e5e7eb;"></div>
+                        <span>No Data</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Planned Maintenance -->
+            <div class="section">
+                <h2>Planned Maintenance</h2>
+                
+                <!-- When NO maintenance is scheduled, show this box -->
+                <div class="maintenance-box none">
+                    <h4>✓ No Scheduled Maintenance</h4>
+                    <p>There are currently no planned maintenance windows. We will notify you in advance of any scheduled maintenance.</p>
+                </div>
+
+                <!-- TEMPLATE: When maintenance IS scheduled, replace the above box with this structure -->
+                <!--
+                <div class="maintenance-box">
+                    <h4>🛠 Scheduled Maintenance</h4>
+                    <p><strong>Date & Time:</strong> February 15, 2026 | 2:00 AM - 4:00 AM UTC</p>
+                    <p><strong>Duration:</strong> Approximately 2 hours</p>
+                    <p><strong>Impact:</strong> All HR AI Agents will be unavailable during this window</p>
+                    <p><strong>Affected Components:</strong> JD Generator, Questionnaire Generator, Resume Scoring, API Services</p>
+                    <p><strong>Reason:</strong> System upgrades and performance improvements</p>
+                </div>
+                -->
+            </div>
+
+            <!-- Incident History -->
+            <div class="section">
+                <h2>Recent Incidents</h2>
+                
+                <!-- When NO incidents, show this -->
+                <div class="no-incidents">
+                    ✓ No incidents reported in the last 90 days
+                </div>
+
+                <!-- TEMPLATE: When incidents occur, replace the above with incident items like these -->
+                <!--
+                <div class="incident-item resolved">
+                    <div class="incident-header">
+                        <div>
+                            <div class="incident-title">Resolved - Brief Service Interruption</div>
+                            <div class="incident-date">January 28, 2026 | 3:15 PM - 3:45 PM UTC</div>
+                        </div>
+                        <span class="incident-badge resolved">Resolved</span>
+                    </div>
+                    <div class="incident-description">
+                        <p><strong>Impact:</strong> Users experienced intermittent timeouts when accessing the Resume Scoring agent.</p>
+                        <p><strong>Resolution:</strong> The issue was caused by a temporary API gateway timeout. Services were restored after restarting the affected components.</p>
+                        <p><strong>Duration:</strong> 30 minutes</p>
+                        <p><strong>Affected Agents:</strong> Resume Scoring Agent</p>
+                    </div>
+                </div>
+
+                <div class="incident-item">
+                    <div class="incident-header">
+                        <div>
+                            <div class="incident-title">Investigating - Slow Response Times</div>
+                            <div class="incident-date">February 3, 2026 | Started at 9:00 AM UTC</div>
+                        </div>
+                        <span class="incident-badge">Investigating</span>
+                    </div>
+                    <div class="incident-description">
+                        <p><strong>Impact:</strong> Some users may experience slower than normal response times.</p>
+                        <p><strong>Status:</strong> Our team is actively investigating the issue.</p>
+                        <p><strong>Last Update:</strong> We have identified the root cause and are implementing a fix.</p>
+                    </div>
+                </div>
+                -->
+            </div>
+
+            <!-- Service Announcements -->
+            <div class="section">
+                <h2>Service Announcements</h2>
+                
+                <div class="maintenance-box none">
+                    <h4>📢 Latest Updates</h4>
+                    <p><strong>February 1, 2026:</strong> HR AI Agents Suite (JD Generator, Questionnaire Generator, and Resume Scoring) is now available as a partner solution on IBM watsonx Orchestrate platform. Contact your administrator for access.</p>
+                </div>
+
+                <!-- TEMPLATE: Add more announcements as needed -->
+                <!--
+                <div class="maintenance-box none" style="margin-top: 1rem;">
+                    <h4>📢 New Feature Released</h4>
+                    <p><strong>January 15, 2026:</strong> Enhanced support for technical role descriptions with improved technology stack recommendations.</p>
+                </div>
+                -->
+            </div>
+
+            <!-- Subscribe to Updates -->
+            <div class="section">
+                <div class="subscribe-box">
+                    <h3>📬 Subscribe to Status Updates</h3>
+                    <p>Get notified about service disruptions, planned maintenance, and important announcements</p>
+                    <div class="subscribe-form">
+                        <input type="email" placeholder="Enter your email address" id="emailInput">
+                        <button onclick="handleSubscribe()">Subscribe</button>
+                    </div>
+                    <p style="font-size: 0.85rem; margin-top: 1rem; opacity: 0.8;">
+                        You can unsubscribe at any time. We respect your privacy.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="footer">
+        <div class="container">
+            <p>&copy; 2026 Netsmartz. All rights reserved.</p>
+            <p style="margin-top: 0.5rem;">
+                <a href="support.html">Support</a> | 
+                <a href="status.html">Service Status</a> | 
+                <a href="mailto:support@netsmartz.com">Contact Us</a>
+            </p>
+            <p style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.8;">
+                Powered by IBM watsonx Orchestrate
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Generate 90-day status calendar
+        function generateStatusCalendar() {
+            const calendar = document.getElementById('statusCalendar');
+            const today = new Date();
+            
+            // Generate 90 days of status (all operational for now)
+            for (let i = 89; i >= 0; i--) {
+                const day = document.createElement('div');
+                day.className = 'calendar-day';
+                
+                // You can manually change specific days to 'degraded' or 'down'
+                // Example: if (i === 62) day.classList.add('degraded');
+                
+                const date = new Date(today);
+                date.setDate(date.getDate() - i);
+                day.title = date.toLocaleDateString() + ' - Operational';
+                
+                calendar.appendChild(day);
+            }
+        }
+
+        // Handle email subscription
+        function handleSubscribe() {
+            const email = document.getElementById('emailInput').value;
+            if (email && email.includes('@')) {
+                alert('Thank you for subscribing! You will receive status updates at ' + email);
+                document.getElementById('emailInput').value = '';
+                // TODO: In production, send email to your backend/mailing service
+            } else {
+                alert('Please enter a valid email address');
+            }
+        }
+
+        // Auto-refresh last updated time
+        function updateLastUpdatedTime() {
+            const now = new Date();
+            const timeString = now.toUTCString();
+            document.querySelectorAll('.last-updated').forEach(el => {
+                if (el.textContent.includes('Last updated:')) {
+                    el.textContent = 'Last updated: ' + timeString;
+                }
+            });
+        }
+
+        // Initialize
+        generateStatusCalendar();
+        
+        // Optional: Auto-refresh every 5 minutes
+        // setInterval(updateLastUpdatedTime, 300000);
+    </script>
+
+</body>
+</html>
